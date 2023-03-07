@@ -2,10 +2,8 @@ package logic
 
 import cats.effect.*
 import cats.implicits.*
-import cats.effect.implicits.*
 import Life.*
-import scala.concurrent.duration.*
-import Patterns.*
+
 object IOFunctions:
   
 
@@ -25,15 +23,6 @@ object IOFunctions:
     yield writeTo(p, "O")).sequence_
 
 
-  def beginLife(g: Grid): IO[Unit] = 
-    clearScreen *>
-    showCells(g) *>
-    goto(width + 1, height + 1) *>
-    IO.sleep(250.millis) >>
-    beginLife(nextGeneration(g))
-  
-  def run(args: List[String]): IO[ExitCode] =
-    beginLife(pulsar).as(ExitCode.Success)
 
 object Patterns:
   val glider: Grid = List((2,4), (3,2), (3,4), (4,3), (4,4))
@@ -49,3 +38,11 @@ object Patterns:
            (11,2),(11, 7),(11, 9),(11,14),
            (12,2),(12,7),(12,9),(12,14),
     (14,4),(14,5),(14,6),(14,10),(14,11),(14,12))
+
+  val toad: Grid = List(
+          (7,7),(7,8),(7,9),
+    (8,6),(8,7),(8,8)
+  )
+  val blinker: Grid = List(
+    (7,7),(7,8),(7,9)
+  )

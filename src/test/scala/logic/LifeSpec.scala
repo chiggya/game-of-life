@@ -1,14 +1,11 @@
 package logic
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.PrivateMethodTester
 
 
-class LifeSpec extends AnyFlatSpec with PrivateMethodTester:
+
+class LifeSpec extends AnyFlatSpec:
   import Life.*
-  type Pos = (Int,Int)
-  type Grid = List[Pos]
-  val height = 30
-  val width = 30
+  
   val p1: Pos = (2,3)
   val p2: Pos = (11,12)
   val g: Grid = List((1,2), (1,4), (2,1), (2,3), (3,2))
@@ -24,7 +21,7 @@ class LifeSpec extends AnyFlatSpec with PrivateMethodTester:
     assert(isEmpty(p2)(g))
   }
 
-  "calling neighbours" should "return a list of neighbours" in {
+  "calling neighbours" should "return a list of adjacent positions" in {
     val neighbs = List(
         (1,2), (1,3), (1, 4),
         (2,2),        (2,4),
@@ -42,7 +39,7 @@ class LifeSpec extends AnyFlatSpec with PrivateMethodTester:
     
   }
 
-  "looking at neighbouring positions" should "return the number of living positions" in {
+  "inspecting neighbouring positions" should "return the number of living positions" in {
     val p: Pos = (1,2)
     assert(liveNeighbours(p)(g) == 2)
   }
@@ -53,7 +50,7 @@ class LifeSpec extends AnyFlatSpec with PrivateMethodTester:
     assert(survivors(g) == gSurvivors)
   }
 
-  "empty positions in grid that have 3 living neighbours" should "result in a living position" in {
+  "empty positions in grid that have 3 living neighbours" should "result in a new living position" in {
     val newBirths: List[Pos] = List((1, 3))
     assert(births(g) == newBirths)
   }
